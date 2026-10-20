@@ -1,6 +1,5 @@
-package Projet-JAVA.src.com.schottenTotten;
 
-import com.schottenTotten.view.VueConsole;
+import view.VueConsole;
 
 public class Main {
     public static void main(String[] args) {

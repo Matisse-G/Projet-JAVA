@@ -11,7 +11,7 @@ public class Partie {
     private Pioche pioche;
     private int joueurActuelIndex;
 
-    public Partie(String nomJoueur1, String nomJoueur2) {
+    public Partie(String nomJoueur1, String nomJoueur2, String typeJeu) {
         this.joueurs = new ArrayList<>();
         this.joueurs.add(new Joueur(nomJoueur1));
         this.joueurs.add(new Joueur(nomJoueur2));
@@ -20,8 +20,8 @@ public class Partie {
         for (int i = 1; i <= 9; i++) {
             this.bornes.add(new Borne(i));
         }
-        this.pioche = new Pioche(typejeu);
-        distribuerCartesInitiales();
+        this.pioche = new Pioche(typeJeu);
+        distributionInitiale();
 
         this.joueurActuelIndex = 0;
         
@@ -44,7 +44,7 @@ public class Partie {
             return false;
         }
 
-        boolean succes = borne.ajouterCarte(joueurActuelIndex, carte, estJoueur1);
+        boolean succes = borne.ajouterCarte(joueurActuel, carte, estJoueur1);
         if(succes) {
             joueurActuel.jouerunecarte(carte);
         
