@@ -1,0 +1,97 @@
+package view;
+
+import controller.Partie;
+import model.*;
+
+
+import java.util.Scanner;
+
+public class VueConsole {
+    private Partie partie;
+    private Scanner scanner;
+
+    public VueConsole(String nom1, String nom2) {
+        this.partie = new Partie(nom1, nom2);
+        this.scanner = new Scanner(System.in);
+    }
+public void demarrer() {
+        System.out.println("=========================================");
+        System.out.println("   Bienvenue dans Schotten-Totten (PROG1)  ");
+        System.out.println("=========================================");
+
+        boolean partieEnCours = true;
+
+        while (partieEnCours) {
+            Joueur joueurActuel = partie.getJoueurActuel();
+            boolean estJoueur1 = partie.getJoueurs().indexOf(joueurActuel) == 0;
+
+            afficherEtatJeu();
+
+            System.out.println("\nC'est au tour de **" + joueurActuel.getNom() + "**.");
+            System.out.println("Vos cartes en main :");
+            for (int i = 0; i < joueurActuel.getMain().size(); i++) {
+                System.out.println("[" + i + "] " + joueurActuel.getMain().get(i));
+            }
+
+            // Saisie du choix de la carte
+            System.out.print("Choisissez l'index de la carte à jouer (-1 pour quitter) : ");
+            int choixCarteIndex = scanner.nextInt();
+
+            if (choixCarteIndex == -1) {
+                partieEnCours = false;
+                System.out.println("Partie interrompue.");
+                break;
+            }
+
+            if (choixCarteIndex < 0 || choixCarteIndex >= joueurActuel.getMain().size()) {
+                System.out.println("Index invalide. Réessayez.");
+                continue;
+            }
+
+            Carte carteChoisie = joueurActuel.getMain().get(choixCarteIndex);
+
+            // Saisie du choix de la borne
+            System.out.print("Choisissez le numéro de la borne (1 à 9) : ");
+            int idBorne = scanner.nextInt();
+
+            Borne borneCible = null;
+            for (Borne b : partie.getBornes()) {
+                if (b.getId() == idBorne) {
+                    borneCible = b;
+                    break;
+                }
+            }
+
+            if (borneCible == null) {
+                System.out.println("Borne inexistante. Réessayez.");
+                continue;
+            }
+
+            // Tentative de jouer le tour
+            boolean coupReussi = partie.jouerTour(carteChoisie, borneCible, estJoueur1);
+            if (!coupReussi) {
+                System.out.println("Coup invalide (borne pleine ou erreur). Réessayez.");
+            } else {
+                System.out.println("Carte jouée avec succès !\n");
+            }
+
+            // Condition de fin simple (ex: pioche vide ou fin de partie à implémenter)
+            if (partie.getPioche().isEmpty() && joueurActuel.getMain().isEmpty()) {
+                System.out.println("La pioche est vide et les mains sont vides. Fin de partie !");
+                partieEnCours = false;
+            }
+        }
+
+        scanner.close();
+    }
+
+    
+    private void afficherEtatJeu() {
+        System.out.println("\n----------------- PLATEAU -----------------");
+        for (Borne b : partie.getBornes()) {
+            System.out.print("Borne " + b.getId() + " | J1: " + b.getCartesJoueur1());
+            System.out.println(" vs J2: " + b.getCartesJoueur2());
+        }
+        System.out.println("-------------------------------------------");
+    }
+}

@@ -6,7 +6,7 @@ import java.util.Collections;
 
 public class Pioche{
     public List<Carte> pioche1;
-    public List<Carte> pioche2;
+    public List<CarteTactique> pioche2;
     public String choix;
     public Pioche(String choix){
         this.choix = choix;

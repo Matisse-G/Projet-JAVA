@@ -1,4 +1,4 @@
-package com.schottenTotten.model;
+package model;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -6,7 +6,7 @@ import java.util.List;
 public class Borne {
     private int id;
     private List<Carte> cartesJoueur1;
-    private List<Carte> cartesJoueur2
+    private List<Carte> cartesJoueur2;
     private Joueur proprietaire;
 
     public Borne(int id){
@@ -16,19 +16,19 @@ public class Borne {
         this.proprietaire = null;
     }
 
-    public ajouterCarte(Joueur joueur, Carte carte, boolean estJoueur1) {
+    public boolean ajouterCarte(Joueur joueur, Carte carte, boolean estJoueur1) {
         if(estJoueur1) {
-            if(carteJoueur1.size() < 3 && joueur.equals(proprietaire)) {
+            if(cartesJoueur1.size() < 3 && joueur.equals(proprietaire)) {
                 cartesJoueur1.add(carte);
                 return true;
             }
         } else {
-            if(carteJoueur2.size() < 3 && joueur.equals(proprietaire)) {
+            if(cartesJoueur2.size() < 3 && joueur.equals(proprietaire)) {
                 cartesJoueur2.add(carte);
                 return true;
             }
         }
-        return false
+        return false;
     }
     
     public boolean estComplete() {

@@ -1,6 +1,6 @@
-package Projet-JAVA.com.schottenTotten.controller;
+package controller;
 
-import com.schottenTotten.model.*;
+import model.*;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
@@ -8,7 +8,7 @@ import java.util.List;
 public class Partie {
     private List<Joueur> joueurs;
     private List<Borne> bornes;
-    private List<Carte> pioche;
+    private Pioche pioche;
     private int joueurActuelIndex;
 
     public Partie(String nomJoueur1, String nomJoueur2) {
@@ -20,8 +20,8 @@ public class Partie {
         for (int i = 1; i <= 9; i++) {
             this.bornes.add(new Borne(i));
         }
-        this.pioche = new ArrayList<>();
-        initialiserPioche();
+        this.pioche = new Pioche(typejeu);
+        distribuerCartesInitiales();
 
         this.joueurActuelIndex = 0;
         
@@ -30,7 +30,9 @@ public class Partie {
     private void distributionInitiale(){
         for(Joueur joueur : joueurs) {
             for(int i=0;i<6;i++){
-                joueur.piocherCarte(Carte.remove(0));
+                if (!pioche.pioche1.isEmpty()) {
+                    joueur.piocherCarte(pioche.pioche1.remove(0));
+                }    
             }
         }
     }
@@ -38,12 +40,16 @@ public class Partie {
     public boolean jouerTour(Carte carte, Borne borne, boolean estJoueur1){
         Joueur joueurActuel = joueurs.get(joueurActuelIndex);
 
+        if (!joueurActuel.getMain().contains(carte)) {
+            return false;
+        }
+
         boolean succes = borne.ajouterCarte(joueurActuelIndex, carte, estJoueur1);
         if(succes) {
             joueurActuel.jouerunecarte(carte);
         
-            if (!pioche.isEmpty()) {
-                    joueurActuel.piocherCarte(pioche.remove(0));
+            if (!pioche.pioche1.isEmpty()) {
+                    joueurActuel.piocherCarte(pioche.pioche1.remove(0));
             }
             changerJoueur();
             return true;
@@ -68,7 +74,7 @@ public class Partie {
         return bornes;
     }
 
-    public List<Carte> getPioche() {
+    public Pioche getPioche() {
         return pioche;
     }
 
