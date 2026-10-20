@@ -9,21 +9,22 @@ public class Borne {
     private List<Carte> cartesJoueur2;
     private Joueur proprietaire;
 
+
     public Borne(int id){
         this.id = id;
         this.cartesJoueur1 = new ArrayList<>();
-        this.cartesJoueur2= new ArrayList<>();
+        this.cartesJoueur2 = new ArrayList<>();
         this.proprietaire = null;
     }
 
     public boolean ajouterCarte(Joueur joueur, Carte carte, boolean estJoueur1) {
         if(estJoueur1) {
-            if(cartesJoueur1.size() < 3 && joueur.equals(proprietaire)) {
+            if(cartesJoueur1.size() < 3 && proprietaire == null) {
                 cartesJoueur1.add(carte);
                 return true;
             }
         } else {
-            if(cartesJoueur2.size() < 3 && joueur.equals(proprietaire)) {
+            if(cartesJoueur2.size() < 3 && proprietaire == null) {
                 cartesJoueur2.add(carte);
                 return true;
             }
@@ -46,6 +47,7 @@ public class Borne {
     public List<Carte> getCartesJoueur2() {
         return cartesJoueur2;
     }
+    
 
     public Joueur getProprietaire() {
         return proprietaire;

@@ -2,7 +2,6 @@ package controller;
 
 import model.*;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 public class Partie {
@@ -30,8 +29,8 @@ public class Partie {
     private void distributionInitiale(){
         for(Joueur joueur : joueurs) {
             for(int i=0;i<6;i++){
-                if (!pioche.pioche1.isEmpty()) {
-                    joueur.piocherCarte(pioche.pioche1.remove(0));
+                if (!pioche.piocheNormal.isEmpty()) {
+                    joueur.piocherCarte(pioche.piocheNormal.remove(0));
                 }    
             }
         }
@@ -48,8 +47,8 @@ public class Partie {
         if(succes) {
             joueurActuel.jouerunecarte(carte);
         
-            if (!pioche.pioche1.isEmpty()) {
-                    joueurActuel.piocherCarte(pioche.pioche1.remove(0));
+            if (!pioche.piocheNormal.isEmpty()) {
+                    joueurActuel.piocherCarte(pioche.piocheNormal.remove(0));
             }
             changerJoueur();
             return true;
@@ -59,7 +58,7 @@ public class Partie {
     
 
     private void changerJoueur() {
-        joueurActuelIndex = (joueurActuelIndex + 1) % joueurs.size();
+        joueurActuelIndex = (joueurActuelIndex + 1) % 2;
     }
 
     public Joueur getJoueurActuel() {

@@ -5,22 +5,22 @@ import java.util.Collections;
 
 
 public class Pioche{
-    public List<Carte> pioche1;
-    public List<CarteTactique> pioche2;
-    public String choix;
-    public Pioche(String choix){
-        this.choix = choix;
-        this.pioche1 = new ArrayList<>();
-        this.pioche2 = new ArrayList<>();
-        if(choix.equals("Normal")){
-            this.pioche1.addAll(new Normal().cartes);
-            Collections.shuffle(this.pioche1);
+    public List<Carte> piocheNormal;
+    public List<CarteTactique> piocheTactique;
+    public String typeJeu;
+    public Pioche(String typeJeu){
+        this.typeJeu = typeJeu;
+        this.piocheNormal = new ArrayList<>();
+        this.piocheTactique = new ArrayList<>();
+        if(typeJeu.equals("Normal")){
+            this.piocheNormal.addAll(new Normal().cartes);
+            Collections.shuffle(this.piocheNormal);
         }
-        else if(choix.equals("Tactique")){
-            this.pioche1.addAll(new Normal().cartes);
-            this.pioche2.addAll(new Tactique().cartes);
-            Collections.shuffle(this.pioche1);
-            Collections.shuffle(this.pioche2);
+        else if(typeJeu.equals("Tactique")){
+            this.piocheNormal.addAll(new Normal().cartes);
+            this.piocheTactique.addAll(new Tactique().cartes);
+            Collections.shuffle(this.piocheNormal);
+            Collections.shuffle(this.piocheTactique);
         }
         else{
             System.out.println("Veuillez choisir soit Tactique soit Normal");
