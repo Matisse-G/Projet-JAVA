@@ -23,7 +23,7 @@ public class Combinaison implements Comparable<Combinaison> {
         analyserCartes(cartes);
     }
 
-    private void analyserCartes(List<Carte> cartes) {
+    public void analyserCartes(List<Carte> cartes) {
         this.sommeValeurs = cartes.get(0).valeur + cartes.get(1).valeur + cartes.get(2).valeur;
 
         boolean isCouleur = verifierCouleur(cartes);
