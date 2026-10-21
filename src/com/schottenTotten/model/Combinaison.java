@@ -51,12 +51,18 @@ public class Combinaison implements Comparable<Combinaison> {
     private boolean verifierSuite(List<Carte> cartes) {
         return cartes.get(0).valeur + 1 == cartes.get(1).valeur && 
                cartes.get(1).valeur + 1 == cartes.get(2).valeur 
+               || cartes.get(0).valeur +2 == cartes.get(1).valeur  && 
+               cartes.get(1).valeur - 1 == cartes.get(2).valeur 
+               || cartes.get(0).valeur - 1 == cartes.get(1).valeur && 
+               cartes.get(1).valeur +2 == cartes.get(2).valeur
                || cartes.get(0).valeur + 1 == cartes.get(1).valeur && 
-               cartes.get(1).valeur + 1 == cartes.get(2).valeur 
-               || cartes.get(0).valeur + 1 == cartes.get(1).valeur && 
-               cartes.get(1).valeur + 1 == cartes.get(2).valeur;
+               cartes.get(1).valeur - 2 == cartes.get(2).valeur
+               || cartes.get(0).valeur - 1 == cartes.get(1).valeur && 
+               cartes.get(1).valeur - 1 == cartes.get(2).valeur
+               || cartes.get(0).valeur - 2 == cartes.get(1).valeur && 
+               cartes.get(1).valeur - 1 == cartes.get(2).valeur;
     }
-// a completer
+
     private boolean verifierBrelan(List<Carte> cartes) {
         return cartes.get(0).valeur == cartes.get(1).valeur && 
                cartes.get(1).valeur == cartes.get(2).valeur;
