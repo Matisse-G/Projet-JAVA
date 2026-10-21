@@ -9,6 +9,7 @@ public class Borne {
     private List<Carte> cartesJoueur2;
     private Joueur proprietaire;
 
+    
 
     public Borne(int id){
         this.id = id;
@@ -55,6 +56,6 @@ public class Borne {
 
     public void setProprietaire(Joueur proprietaire) {
         this.proprietaire = proprietaire;
-    }
-
+    } 
+    
 }

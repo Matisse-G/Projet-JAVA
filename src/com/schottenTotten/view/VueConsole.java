@@ -65,7 +65,7 @@ public class VueConsole {
                     break;
                 }
             }
-
+            
             if (borneCible == null) {
                 System.out.println("Borne inexistante. Réessayez.");
                 continue;
@@ -77,11 +77,13 @@ public class VueConsole {
             } else {
                 System.out.println("Carte jouée avec succès !\n");
             }
-
-            if (partie.getPioche().piocheNormal.isEmpty() && joueurActuel.getMain().isEmpty()) {
-                System.out.println("La pioche est vide et les mains sont vides. Fin de partie !");
+            
+            if (partie.quiaGagner() == null){}
+            else  {
+                System.out.println("Fin de partie !  Le joueur " + joueurActuel.getNom() + " a gagner");
                 partieEnCours = false;
             }
+            partie.changerJoueur();
         }
 
         scanner.close();

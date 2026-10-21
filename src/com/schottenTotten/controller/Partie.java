@@ -50,14 +50,14 @@ public class Partie {
             if (!pioche.piocheNormal.isEmpty()) {
                     joueurActuel.piocherCarte(pioche.piocheNormal.remove(0));
             }
-            changerJoueur();
+            borne.revendiquer(joueurActuel);
             return true;
         }
         return false;
     }
     
 
-    private void changerJoueur() {
+    public void changerJoueur() {
         joueurActuelIndex = (joueurActuelIndex + 1) % 2;
     }
 
@@ -75,6 +75,37 @@ public class Partie {
 
     public Pioche getPioche() {
         return pioche;
+    }
+
+    public Joueur quiaGagner(){
+        int nb_propJ = 0;
+        int nb_3daffiler = 0;
+        for(Borne borne : bornes){
+            if (borne.getProprietaire() == null){
+                nb_3daffiler = 0;
+            }
+            else if(borne.getProprietaire().equals(getJoueurActuel())){
+                nb_propJ++;
+                nb_3daffiler++;
+                if(nb_3daffiler == 3 || nb_propJ == 5){
+                    return getJoueurActuel();
+                }
+
+            }
+            else if(nb_3daffiler == 3){
+                return getJoueurActuel();
+            }
+            else if(nb_propJ == 5){
+                return getJoueurActuel();
+            }
+            else{
+                nb_3daffiler = 0;
+            }
+            
+            
+
+        }
+        return null;
     }
 
 }
