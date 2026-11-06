@@ -91,9 +91,24 @@ public class VueConsole {
     
     private void afficherEtatJeu() {
         System.out.println("\n----------------- PLATEAU -----------------");
+        
+        String COULEUR_J1 = "\u001B[36m"; // Cyan
+        String COULEUR_J2 = "\u001B[35m"; // Violet
+        String RESET = "\u001B[0m";
+
         for (Borne b : partie.getBornes()) {
-            System.out.print("Borne " + b.getId() + " | J1:" + b.getCartesJoueur1());
-            System.out.println(" vs J2:" + b.getCartesJoueur2()); 
+            System.out.print("Borne " + b.getId() + " | J1: " + b.getCartesJoueur1());
+            System.out.print(" vs J2: " + b.getCartesJoueur2()); 
+            
+            if (b.getProprietaire() != null) {
+                // On vérifie qui est le propriétaire pour mettre la bonne couleur
+                if (b.getProprietaire() == partie.getJoueurs().get(0)) {
+                    System.out.print("  ==> " + COULEUR_J1 + "[Gagnée par " + b.getProprietaire().getNom() + "]" + RESET);
+                } else {
+                    System.out.print("  ==> " + COULEUR_J2 + "[Gagnée par " + b.getProprietaire().getNom() + "]" + RESET);
+                }
+            }
+            System.out.println();
         }
         System.out.println("-------------------------------------------");
     }
