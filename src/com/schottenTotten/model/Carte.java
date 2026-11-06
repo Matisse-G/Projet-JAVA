@@ -8,9 +8,14 @@ public class Carte {
         this.valeur = valeur;
     }
     public enum Couleur{
-        BLEU("\u001B[34m"),ROUGE("\u001B[31m"),VERT("\u001B[32m"),VIOLET("\u001B[35m"),JAUNE("\u001B[33m"),BRUN("\u001B[38;5;130m");
+        BLEU("\u001B[34m"),
+        ROUGE("\u001B[31m"),
+        VERT("\u001B[32m"),
+        VIOLET("\u001B[35m"),
+        JAUNE("\u001B[33m"),
+        BRUN("\u001B[38;5;130m");
+        
         private final String codeAnsi;
-    
     
         public static final String RESET = "\u001B[0m"; 
 

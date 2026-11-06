@@ -7,7 +7,9 @@ public class Borne {
     private int id;
     private List<Carte> cartesJoueur1;
     private List<Carte> cartesJoueur2;
-    private Joueur proprietaire;
+    private Joueur proprietaire; 
+    private Combinaison combJ1;
+    private Combinaison combJ2;
 
     
 
@@ -16,6 +18,8 @@ public class Borne {
         this.cartesJoueur1 = new ArrayList<>();
         this.cartesJoueur2 = new ArrayList<>();
         this.proprietaire = null;
+/*         this.combJ1 = new Combinaison(cartesJoueur1);
+        this.combJ2 = new Combinaison(cartesJoueur2); */
     }
 
     public boolean ajouterCarte(Joueur joueur, Carte carte, boolean estJoueur1) {
@@ -57,5 +61,19 @@ public class Borne {
     public void setProprietaire(Joueur proprietaire) {
         this.proprietaire = proprietaire;
     } 
-    
+
+    public void revendiquer(List<Joueur> joueur){
+        if(cartesJoueur1.size() == 3){
+            combJ1.analyserCartes(cartesJoueur1);
+        }
+        if(cartesJoueur2.size() == 3){
+            combJ2.analyserCartes(cartesJoueur2);
+        }
+        if(combJ1.compareTo(combJ2) > 0){
+            setProprietaire(joueur.get(0));
+        }
+        else if(combJ2.compareTo(combJ1) > 0){
+            setProprietaire(joueur.get(1));
+        }
+    }
 }

@@ -16,8 +16,7 @@ public class VueConsole {
         String nom1 = scanner.next();
         System.out.println("Veuillez entrer le nom du deuxième joueur :");
         String nom2 = scanner.next();
-        this.partie = new Partie(nom1, nom2, "Normal"); // Vous pouvez changer le type de jeu ici
-        
+        this.partie = new Partie(nom1, nom2, "Normal"); 
     }
     public void demarrer() {
         System.out.println("=========================================");

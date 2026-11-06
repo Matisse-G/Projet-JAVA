@@ -8,18 +8,17 @@ public class Combinaison implements Comparable<Combinaison> {
         SOMME(1), SUITE(2), COULEUR(3), BRELAN(4), SUITE_COULEUR(5);
         
         private final int force;
-        Type(int force) { this.force = force; }
-        public int getForce() { return force; }
+        Type(int force){
+            this.force = force; 
+        }
+        public int getForce(){ 
+            return force; }
     }
 
     private Type type;
     private int sommeValeurs; 
 
     public Combinaison(List<Carte> cartes) {
-        if (cartes == null || cartes.size() != 3) {
-            throw new IllegalArgumentException("Une combinaison nécessite exactement 3 cartes.");
-        }
-        
         analyserCartes(cartes);
     }
 
