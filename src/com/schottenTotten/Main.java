@@ -1,4 +1,3 @@
-
 import view.VueConsole;
 
 public class Main {

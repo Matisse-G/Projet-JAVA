@@ -108,4 +108,94 @@ public class Partie {
         return null;
     }
 
+    public List<Carte> getCartesVisiblesPour(Joueur joueurActuel) {
+    List<Carte> visibles = new ArrayList<>();
+    
+    for (Borne b : bornes) {
+        visibles.addAll(b.getCartesJoueur1());
+        visibles.addAll(b.getCartesJoueur2());
+    }
+    
+    return visibles;
+    }
+
+    public List<Carte> getCartesDisponiblesEnPioche(Joueur joueurActuel) {
+    List<Carte> disponibles = new ArrayList<>();
+    List<Carte> visibles = getCartesVisiblesPour(joueurActuel);
+
+    for (Carte.Couleur c : Carte.Couleur.values()) {
+        for (int v = 1; v <= 9; v++) {
+            Carte carteTest = new Carte(c, v);
+
+            boolean estVisible = false;
+            for (Carte vis : visibles) {
+                if (vis.couleur == c && vis.valeur == v) {
+                    estVisible = true;
+                    break;
+                }
+            }
+            if (!estVisible) {
+                disponibles.add(carteTest);
+            }
+        }
+    }
+    return disponibles;
+    }
+
+    public boolean peutAnticiperRevendication(Borne borne, Joueur joueurActuel, Joueur adversaire) {
+    List<Carte> cartesActuel = (joueurActuel == joueurs.get(0)) ? borne.getCartesJoueur1() : borne.getCartesJoueur2();
+    List<Carte> cartesAdv = (adversaire == joueurs.get(0)) ? borne.getCartesJoueur1() : borne.getCartesJoueur2();
+
+    if (cartesActuel.size() != 3 || borne.getProprietaire() != null) {
+        return false;
+    }
+
+    Combinaison combiABattre = new Combinaison(cartesActuel);
+    List<Carte> cartesDispo = getCartesDisponiblesEnPioche(joueurActuel);
+    int nombreCartesManquantesAdv = 3 - cartesAdv.size();
+
+    if (nombreCartesManquantesAdv == 1) {
+        for (Carte c1 : cartesDispo) {
+            List<Carte> simuAdv = new ArrayList<>(cartesAdv);
+            simuAdv.add(c1);
+            Combinaison combiSimulee = new Combinaison(simuAdv);
+            
+            if (combiSimulee.compareTo(combiABattre) >= 0) {
+                return false; 
+            }
+        }
+    } else if (nombreCartesManquantesAdv == 2) {
+        for (int i = 0; i < cartesDispo.size(); i++) {
+            for (int j = i + 1; j < cartesDispo.size(); j++) {
+                List<Carte> simuAdv = new ArrayList<>(cartesAdv);
+                simuAdv.add(cartesDispo.get(i));
+                simuAdv.add(cartesDispo.get(j));
+                Combinaison combiSimulee = new Combinaison(simuAdv);
+                
+                if (combiSimulee.compareTo(combiABattre) >= 0) {
+                    return false;
+                }
+            }
+        }
+    } else if (nombreCartesManquantesAdv == 3) {
+        for (int i = 0; i < cartesDispo.size(); i++) {
+            for (int j = i + 1; j < cartesDispo.size(); j++) {
+                for (int k = j + 1; k < cartesDispo.size(); k++) {
+                    List<Carte> simuAdv = new ArrayList<>();
+                    simuAdv.add(cartesDispo.get(i));
+                    simuAdv.add(cartesDispo.get(j));
+                    simuAdv.add(cartesDispo.get(k));
+                    Combinaison combiSimulee = new Combinaison(simuAdv);
+                    
+                    if (combiSimulee.compareTo(combiABattre) >= 0) {
+                        return false;
+                    }
+                }
+            }
+        }
+    }
+
+    return true;
+    }
+
 }
