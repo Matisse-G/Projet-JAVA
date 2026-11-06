@@ -50,7 +50,7 @@ public class Partie {
             if (!pioche.piocheNormal.isEmpty()) {
                     joueurActuel.piocherCarte(pioche.piocheNormal.remove(0));
             }
-/*             borne.revendiquer(joueurActuel); */
+             borne.revendiquer(joueurs.get(0), joueurs.get(1));
             return true;
         }
         return false;
